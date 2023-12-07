@@ -1,0 +1,5 @@
+customtkinter
+pillow
+minecraft_launcher_lib
+subprocess
+CTkListbox
