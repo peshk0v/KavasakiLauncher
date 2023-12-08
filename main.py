@@ -6,6 +6,7 @@ import minecraft_launcher_lib
 import subprocess
 from CTkListbox import *
 import uuid
+from setmine import ad_rp, adNewOptions
 
 customtkinter.set_appearance_mode("dark")
 
@@ -18,18 +19,18 @@ class App(customtkinter.CTk):
         super().__init__(*args, **kwargs)
 
         with open("settings.json", "r") as sf:
-            sett = json.load(sf)
+            self.sett = json.load(sf)
 
-        self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{sett["minecraftDirPathName"]}")
+        self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["minecraftDirPathName"]}")
 
         self.title("KavasakiLauncher")
         self.geometry(f"{self.width}x{self.height}")
         self.resizable(False, False)
-        self.iconbitmap(f"{sett["appIconFile"]}")
+        self.iconbitmap(f"{self.sett["appIconFile"]}")
 
         # load and create background image
         current_path = os.path.dirname(os.path.realpath(__file__))
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + sett["backgroundPath"]),
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + self.sett["backgroundPath"]),
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
         self.bg_image_label.grid(row=0, column=0)
@@ -69,6 +70,17 @@ class App(customtkinter.CTk):
 
     def login_event(self):
         print("Start pressed - nickname:", self.username_entry.get(), "version:", self.versionListbox.get())
+        self.datalist = os.listdir(self.sett["dataPath"])
+        self.rpOnData = False
+        for i in range(len(self.datalist)):
+            if self.datalist[i] == self.sett["rpFileName"]:
+                self.rpOnData = True
+        if self.rpOnData:
+            ad_rp(self.minecraft_directory, self.sett["dataPath"], self.sett["rpFileName"])
+        stfilePath = self.sett["dataPath"] + "\\started.kav"
+        if int(open(stfilePath, "r").read()) == 1:
+            adNewOptions(self.sett["nopFileName"], self.sett["dataPath"], self.minecraft_directory)
+            open(stfilePath, "w").write("0")
         self.login_frame.grid_forget()
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
         if self.versionListbox.get() == "Add New Version":

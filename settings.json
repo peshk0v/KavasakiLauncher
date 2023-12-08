@@ -1,5 +1,8 @@
 {
-  "backgroundPath":"/images/bg.jpg",
+  "backgroundPath":"/data/images/bg.jpg",
   "minecraftDirPathName":"kavasaki",
-  "appIconFile":"images/icon.ico"
+  "appIconFile":"data/images/icon.ico",
+  "dataPath":"data",
+  "rpFileName":"SUHOGRUZx.zip",
+  "nopFileName":"newMineOptions.txt"
 }
