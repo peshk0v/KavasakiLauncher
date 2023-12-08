@@ -6,7 +6,6 @@ import minecraft_launcher_lib
 import subprocess
 from CTkListbox import *
 import uuid
-import resource
 
 customtkinter.set_appearance_mode("dark")
 
@@ -26,7 +25,7 @@ class App(customtkinter.CTk):
         self.title("KavasakiLauncher")
         self.geometry(f"{self.width}x{self.height}")
         self.resizable(False, False)
-        self.wm_iconbitmap(ImageTk.PhotoImage(file=resource(f"{sett["appIconFile"]}"), master=self))
+        self.iconbitmap(f"{sett["appIconFile"]}")
 
         # load and create background image
         current_path = os.path.dirname(os.path.realpath(__file__))
