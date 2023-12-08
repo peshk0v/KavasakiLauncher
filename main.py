@@ -1,11 +1,12 @@
 import customtkinter
-from PIL import Image
+from PIL import Image, ImageTk
 import os
 import json
 import minecraft_launcher_lib
 import subprocess
 from CTkListbox import *
 import uuid
+import resource
 
 customtkinter.set_appearance_mode("dark")
 
@@ -25,6 +26,7 @@ class App(customtkinter.CTk):
         self.title("KavasakiLauncher")
         self.geometry(f"{self.width}x{self.height}")
         self.resizable(False, False)
+        self.wm_iconbitmap(ImageTk.PhotoImage(file=resource(f"{sett["appIconFile"]}"), master=self))
 
         # load and create background image
         current_path = os.path.dirname(os.path.realpath(__file__))
@@ -40,7 +42,7 @@ class App(customtkinter.CTk):
                                                   font=customtkinter.CTkFont(size=20, weight="bold"))
         self.login_label.grid(row=0, column=0, padx=30, pady=(20, 15))
         self.username_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="NICKNAME")
-        self.username_entry.grid(row=1, column=0, padx=30, pady=(15, 15))
+        self.username_entry.grid(row=1, column=0, padx=30, pady=(8, 8))
         self.versionsDirectory = self.minecraft_directory + "/versions"
         self.versionsList = os.listdir(self.versionsDirectory)
         self.versionsListText = "Installed versions:"

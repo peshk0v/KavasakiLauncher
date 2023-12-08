@@ -3,3 +3,4 @@ pillow
 minecraft_launcher_lib
 subprocess
 CTkListbox
+resource

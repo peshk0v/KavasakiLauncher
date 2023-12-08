@@ -1,4 +1,5 @@
 {
   "backgroundPath":"/images/bg.jpg",
-  "minecraftDirPathName":"kavasaki"
+  "minecraftDirPathName":"kavasaki",
+  "appIconFile":"/images/icon.ico"
 }
