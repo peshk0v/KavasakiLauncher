@@ -1,1 +1,1 @@
-"# Kavasaki Launcher" 
+Kavasaki Launcher
