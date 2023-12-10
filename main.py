@@ -43,8 +43,11 @@ class App(customtkinter.CTk):
         self.login_label.grid(row=0, column=0, padx=30, pady=(20, 15))
         self.username_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="NICKNAME")
         self.username_entry.grid(row=1, column=0, padx=30, pady=(8, 8))
-        self.versionsDirectory = self.minecraft_directory + "/versions"
-        self.versionsList = os.listdir(self.versionsDirectory)
+        self.versionsDirectory = self.minecraft_directory + "\\versions"
+        try:
+            self.versionsList = os.listdir(self.versionsDirectory)
+        except FileNotFoundError:
+            self.versionsList = []
         self.versionsListText = "Installed versions:"
         self.version_label = customtkinter.CTkLabel(self.login_frame, text=self.versionsListText,font=customtkinter.CTkFont(size=20, weight="bold"))
         self.versionListbox = CTkListbox(self.login_frame, height=10)
