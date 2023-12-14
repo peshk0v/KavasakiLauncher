@@ -5,11 +5,11 @@ import json
 import minecraft_launcher_lib
 import subprocess
 from CTkListbox import *
+from CTkMessagebox import CTkMessagebox
 import uuid
 from setmine import ad_rp, adNewOptions
 
 customtkinter.set_appearance_mode("dark")
-
 
 class App(customtkinter.CTk):
     width = 900
@@ -22,6 +22,7 @@ class App(customtkinter.CTk):
             self.sett = json.load(sf)
 
         self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["minecraftDirPathName"]}")
+        self.avVerList = minecraft_launcher_lib.utils.get_version_list()
 
         self.title("KavasakiLauncher")
         self.geometry(f"{self.width}x{self.height}")
@@ -45,21 +46,31 @@ class App(customtkinter.CTk):
         self.username_entry.grid(row=1, column=0, padx=30, pady=(8, 8))
         self.versionsDirectory = self.minecraft_directory + "\\versions"
         try:
-            self.versionsList = os.listdir(self.versionsDirectory)
+            self.stVersionsList = os.listdir(self.versionsDirectory)
         except FileNotFoundError:
-            self.versionsList = []
+            self.stVersionsList = []
         self.versionsListText = "Installed versions:"
         self.version_label = customtkinter.CTkLabel(self.login_frame, text=self.versionsListText,font=customtkinter.CTkFont(size=20, weight="bold"))
         self.versionListbox = CTkListbox(self.login_frame, height=10)
         self.versionListbox.grid(row=3, column=0, padx=30, pady=(15, 15))
         self.version_label.grid(row=2, column=0, padx=30, pady=(5, 5))
-        for i in range(len(self.versionsList)):
-            self.versionListbox.insert(i, f"{self.versionsList[i]}")
-        self.versionListbox.insert(len(self.versionsList)+1, "Add New Version")
-        self.password_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="VERSION")
-        self.password_entry.grid(row=5, column=0, padx=30, pady=(0, 15))
-        self.toinstallLabel = customtkinter.CTkLabel(self.login_frame, text="To install minecraft version, type version on format: \nVanilla - va: <version> \nForge - fo: <version>\nFabric - fa: <version>",font=customtkinter.CTkFont(size=13, weight="bold"))
-        self.toinstallLabel.grid(row=4, column=0, padx=30, pady=(15, 15))
+        self.vlbsize = 0
+        for i in range(len(self.avVerList)):
+            if self.avVerList[i]["type"] == "release":
+                self.versionListbox.insert(i, f"{self.avVerList[i]["id"]}")
+                self.vlbsize += 1
+
+        for v in range(len(self.stVersionsList)):
+            if self.stVersionsList[v] in self.avVerList:
+                pass
+            else:
+                self.versionListbox.insert(self.vlbsize+1, f"{self.stVersionsList[v]}")
+                self.vlbsize + 1
+
+        self.typeVerLB = customtkinter.CTkComboBox(self.login_frame,values=["Vanilla", "Forge", "Fabric", "Quilt"])
+        self.typeVerLB.grid(row=5, column=0, padx=30, pady=(5, 15))
+        self.typeVerLB.set("Vanilla")
+
         self.login_button = customtkinter.CTkButton(self.login_frame, text="START", command=self.login_event, width=200)
         self.login_button.grid(row=6, column=0, padx=30, pady=(10, 15))
 
@@ -75,19 +86,22 @@ class App(customtkinter.CTk):
         print("Start pressed - nickname:", self.username_entry.get(), "version:", self.versionListbox.get())
         self.login_frame.grid_forget()
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
-        if self.versionListbox.get() == "Add New Version":
-            verentryget = self.password_entry.get().lower()
-            verentsplit = verentryget.split(": ")
-            if verentsplit[0] == "va":
-                minecraft_launcher_lib.install.install_minecraft_version(versionid=verentsplit[1],minecraft_directory=self.minecraft_directory)
-            elif verentsplit[0] == "fo":
-                minecraft_launcher_lib.forge.install_forge_version(verentsplit[1], self.minecraft_directory)
-            elif verentsplit[0] == "fa":
-                minecraft_launcher_lib.fabric.install_fabric(verentsplit[1], self.minecraft_directory)
-            elif verentsplit[0] == "qu":
-                minecraft_launcher_lib.quilt.install_quilt(verentsplit[1], self.minecraft_directory)
 
+        if not self.versionListbox.get() in self.avVerList:
+            verlistget = self.versionListbox.get()
+            vibOr = self.typeVerLB.get()
+            CTkMessagebox(title="Info", message="Установка выбранной версии началась!")
+            if vibOr == "Vanilla":
+                minecraft_launcher_lib.install.install_minecraft_version(versionid=verlistget,minecraft_directory=self.minecraft_directory)
+            elif vibOr == "Forge":
+                minecraft_launcher_lib.forge.install_forge_version(verlistget, self.minecraft_directory)
+            elif vibOr == "Fabric":
+                minecraft_launcher_lib.fabric.install_fabric(verlistget, self.minecraft_directory)
+            elif vibOr == "Quilt":
+                minecraft_launcher_lib.quilt.install_quilt(verlistget, self.minecraft_directory)
+            CTkMessagebox(message="Версия успешно загружена! Игра запускается!", icon="check", option_1="Thanks")
         else:
+
             self.datalist = os.listdir(self.sett["dataPath"])
             self.rpOnData = False
             for i in range(len(self.datalist)):
