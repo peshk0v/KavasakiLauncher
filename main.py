@@ -8,6 +8,7 @@ from CTkListbox import *
 from CTkMessagebox import CTkMessagebox
 import uuid
 from setmine import ad_rp, adNewOptions
+from random_username.generate import generate_username
 
 customtkinter.set_appearance_mode("dark")
 
@@ -23,6 +24,11 @@ class App(customtkinter.CTk):
 
         self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["minecraftDirPathName"]}")
         self.avVerList = minecraft_launcher_lib.utils.get_version_list()
+
+        self.aids = []
+        for i in range(len(self.avVerList)):
+            if self.avVerList[i]["type"] == "release":
+                self.aids.append(self.avVerList[i]["id"])
 
         self.title("KavasakiLauncher")
         self.geometry(f"{self.width}x{self.height}")
@@ -73,6 +79,9 @@ class App(customtkinter.CTk):
 
         self.login_button = customtkinter.CTkButton(self.login_frame, text="START", command=self.login_event, width=200)
         self.login_button.grid(row=6, column=0, padx=30, pady=(10, 15))
+        self.insProgBar = customtkinter.CTkProgressBar(self.login_frame)
+        self.insProgBar.grid(row=7, column=0, padx=30, pady=(10, 15))
+        self.insProgBar.set(0/100)
 
         # create main frame
         self.main_frame = customtkinter.CTkFrame(self, corner_radius=0)
@@ -87,10 +96,18 @@ class App(customtkinter.CTk):
         self.login_frame.grid_forget()
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
 
-        if not self.versionListbox.get() in self.avVerList:
+        print(self.versionListbox.get())
+        print(self.aids)
+        if self.versionListbox.get() in self.stVersionsList:
+            print("True")
+        else:
+            print("False")
+
+        self.insProgBar.start()
+        if not self.versionListbox.get() in self.stVersionsList:
             verlistget = self.versionListbox.get()
             vibOr = self.typeVerLB.get()
-            CTkMessagebox(title="Info", message="Установка выбранной версии началась!")
+            # CTkMessagebox(title="Info", message="Установка выбранной версии началась!")
             if vibOr == "Vanilla":
                 minecraft_launcher_lib.install.install_minecraft_version(versionid=verlistget,minecraft_directory=self.minecraft_directory)
             elif vibOr == "Forge":
@@ -99,7 +116,7 @@ class App(customtkinter.CTk):
                 minecraft_launcher_lib.fabric.install_fabric(verlistget, self.minecraft_directory)
             elif vibOr == "Quilt":
                 minecraft_launcher_lib.quilt.install_quilt(verlistget, self.minecraft_directory)
-            CTkMessagebox(message="Версия успешно загружена! Игра запускается!", icon="check", option_1="Thanks")
+            CTkMessagebox(message="Версия успешно загружена!", icon="check", option_1="Thanks")
         else:
 
             self.datalist = os.listdir(self.sett["dataPath"])
@@ -120,16 +137,17 @@ class App(customtkinter.CTk):
         #         print("Version Installed Sucefull!")
         # else:
         #     pass
-        options = {
-            'username': self.username_entry.get(),
-            'uuid': str(uuid.uuid4()),
-            'type': 'plain',
-            'age':"20"
-        }
-        if self.versionListbox.get() == "Add New Version":
-            verentryget = self.password_entry.get().split(": ")
-            subprocess.call(minecraft_launcher_lib.command.get_minecraft_command(version=verentryget[1],minecraft_directory=self.minecraft_directory,options=options))
-        subprocess.call(minecraft_launcher_lib.command.get_minecraft_command(version=self.versionListbox.get(),minecraft_directory=self.minecraft_directory,options=options))
+
+            if self.username_entry.get() == '':
+                self.username = generate_username()[0]
+
+            options = {
+                'username': self.username,
+                'uuid': str(uuid.uuid1()),
+                'token': ''
+            }
+            print(options)
+            subprocess.call(minecraft_launcher_lib.command.get_minecraft_command(version=self.versionListbox.get(),minecraft_directory=self.minecraft_directory,options=options))
 
 
 if __name__ == "__main__":

@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="7190967c-6a9c-4e81-a384-83b8704afc0d" name="Changes" comment="Fixed FileError">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/SUHOGRUZx.zip" beforeDir="false" afterPath="$PROJECT_DIR$/data/images/SUHOGRUZx.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/started.kav" beforeDir="false" afterPath="$PROJECT_DIR$/data/started.kav" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/latest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +156,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702546930938</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Fixed FileError">
+      <option name="closed" value="true" />
+      <created>1702555217092</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702555217092</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
