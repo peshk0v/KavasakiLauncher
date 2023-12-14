@@ -29,7 +29,7 @@ class App(customtkinter.CTk):
         self.iconbitmap(f"{self.sett["appIconFile"]}")
 
         # load and create background image
-        current_path = os.path.dirname(os.path.realpath(__file__))
+        current_path = self.sett["curentPath"]
         self.bg_image = customtkinter.CTkImage(Image.open(current_path + self.sett["backgroundPath"]),
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
@@ -73,17 +73,6 @@ class App(customtkinter.CTk):
 
     def login_event(self):
         print("Start pressed - nickname:", self.username_entry.get(), "version:", self.versionListbox.get())
-        self.datalist = os.listdir(self.sett["dataPath"])
-        self.rpOnData = False
-        for i in range(len(self.datalist)):
-            if self.datalist[i] == self.sett["rpFileName"]:
-                self.rpOnData = True
-        if self.rpOnData:
-            ad_rp(self.minecraft_directory, self.sett["dataPath"], self.sett["rpFileName"])
-        stfilePath = self.sett["dataPath"] + "\\started.kav"
-        if int(open(stfilePath, "r").read()) == 1:
-            adNewOptions(self.sett["nopFileName"], self.sett["dataPath"], self.minecraft_directory)
-            open(stfilePath, "w").write("0")
         self.login_frame.grid_forget()
         self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
         if self.versionListbox.get() == "Add New Version":
@@ -97,6 +86,19 @@ class App(customtkinter.CTk):
                 minecraft_launcher_lib.fabric.install_fabric(verentsplit[1], self.minecraft_directory)
             elif verentsplit[0] == "qu":
                 minecraft_launcher_lib.quilt.install_quilt(verentsplit[1], self.minecraft_directory)
+
+        else:
+            self.datalist = os.listdir(self.sett["dataPath"])
+            self.rpOnData = False
+            for i in range(len(self.datalist)):
+                if self.datalist[i] == self.sett["rpFileName"]:
+                    self.rpOnData = True
+            if self.rpOnData:
+                ad_rp(self.minecraft_directory, self.sett["dataPath"], self.sett["rpFileName"])
+            stfilePath = self.sett["dataPath"] + "\\started.kav"
+            if int(open(stfilePath, "r").read()) == 1:
+                adNewOptions(self.sett["nopFileName"], self.sett["dataPath"], self.minecraft_directory)
+                open(stfilePath, "w").write("0")
         # if not self.password_entry.get() in self.versionsList:
         #     try:
         #         minecraft_launcher_lib.install.install_minecraft_version(versionid=self.password_entry.get(), minecraft_directory=self.minecraft_directory)
