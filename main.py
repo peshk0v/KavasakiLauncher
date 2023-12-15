@@ -1,12 +1,13 @@
 import customtkinter
 from PIL import Image, ImageTk
 import os
-import json
 import minecraft_launcher_lib
 import subprocess
+import tomllib
+import json
+import uuid
 from CTkListbox import *
 from CTkMessagebox import CTkMessagebox
-import uuid
 from setmine import ad_rp, adNewOptions
 from random_username.generate import generate_username
 
@@ -19,10 +20,10 @@ class App(customtkinter.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        with open("settings.json", "r") as sf:
-            self.sett = json.load(sf)
+        with open("settings.toml", "rb") as sf:
+            self.sett = tomllib.load(sf)
 
-        self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["minecraftDirPathName"]}")
+        self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["path"]["minecraftDirPathName"]}")
         self.avVerList = minecraft_launcher_lib.utils.get_version_list()
 
         try:
@@ -43,11 +44,11 @@ class App(customtkinter.CTk):
         self.title("KavasakiLauncher")
         self.geometry(f"{self.width}x{self.height}")
         self.resizable(False, False)
-        self.iconbitmap(f"{self.sett["appIconFile"]}")
+        self.iconbitmap(f"{self.sett["path"]["iconPath"]}")
 
         # load and create background image
-        current_path = self.sett["curentPath"]
-        self.bg_image = customtkinter.CTkImage(Image.open(current_path + self.sett["backgroundPath"]),
+        current_path = self.sett["path"]["curentPath"]
+        self.bg_image = customtkinter.CTkImage(Image.open(current_path + self.sett["path"]["backgroundPath"]),
                                                size=(self.width, self.height))
         self.bg_image_label = customtkinter.CTkLabel(self, image=self.bg_image)
         self.bg_image_label.grid(row=0, column=0)
@@ -150,16 +151,16 @@ class App(customtkinter.CTk):
             CTkMessagebox(message="Версия успешно загружена!", icon="check", option_1="Хорошо")
         else:
 
-            self.datalist = os.listdir(self.sett["dataPath"])
+            self.datalist = os.listdir(self.sett["path"]["dataPath"])
             self.rpOnData = False
             for i in range(len(self.datalist)):
-                if self.datalist[i] == self.sett["rpFileName"]:
+                if self.datalist[i] == self.sett["file"]["rpFileName"]:
                     self.rpOnData = True
             if self.rpOnData:
-                ad_rp(self.minecraft_directory, self.sett["dataPath"], self.sett["rpFileName"])
+                ad_rp(self.minecraft_directory, self.sett["path"]["dataPath"], self.sett["file"]["rpFileName"])
             stfilePath = self.sett["dataPath"] + "\\started.kav"
             if int(open(stfilePath, "r").read()) == 1:
-                adNewOptions(self.sett["nopFileName"], self.sett["dataPath"], self.minecraft_directory)
+                adNewOptions(self.sett["file"]["nopFileName"], self.sett["path"]["dataPath"], self.minecraft_directory)
                 open(stfilePath, "w").write("0")
 
             if self.usernameCB.get() == "Generate Random Nickname":

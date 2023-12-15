@@ -1,0 +1,10 @@
+[file]
+rpFileName = "SUHOGRUZx.zip"
+nopFileName = "newMineOptions.txt"
+
+[path]
+minecraftDirPathName = "kavasaki"
+curentPath = "C:\\Program Files\\kavasaki"
+dataPath = "data"
+backgroundPath = "\\data\\images\\bg.jpg"
+iconPath = "data/images/icon.ico"
