@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7190967c-6a9c-4e81-a384-83b8704afc0d" name="Changes" comment="Fixed FileError">
+    <list default="true" id="7190967c-6a9c-4e81-a384-83b8704afc0d" name="Changes" comment="New Interface, fixing">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/latest.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/latest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -164,12 +164,21 @@
       <option name="project" value="LOCAL" />
       <updated>1702555217092</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="New Interface, fixing">
+      <option name="closed" value="true" />
+      <created>1702562151226</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1702562151226</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="editing" />
     <MESSAGE value="Fixed FileError" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed FileError" />
+    <MESSAGE value="New Interface, fixing" />
+    <option name="LAST_COMMIT_MESSAGE" value="New Interface, fixing" />
   </component>
 </project>

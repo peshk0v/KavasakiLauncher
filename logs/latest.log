@@ -1,41 +1,30 @@
-[16:49:07] [Client thread/INFO]: Setting user: pleasedLlama1
-[16:49:10] [Client thread/WARN]: Skipping bad option: lastServer:
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.pickItem:key.mouse.middle
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.playerlist:key.keyboard.tab
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.advancements:key.keyboard.l
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.5:key.keyboard.5
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.6:key.keyboard.6
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.7:key.keyboard.7
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.8:key.keyboard.8
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.1:key.keyboard.1
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.2:key.keyboard.2
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.3:key.keyboard.3
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.4:key.keyboard.4
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.sprint:key.keyboard.left.control
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.forward:key.keyboard.w
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.drop:key.keyboard.q
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.back:key.keyboard.s
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.attack:key.mouse.left
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.use:key.mouse.right
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.saveToolbarActivator:key.keyboard.c
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.smoothCamera:key.keyboard.unknown
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.right:key.keyboard.d
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.jump:key.keyboard.space
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.sneak:key.keyboard.left.shift
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.spectatorOutlines:key.keyboard.unknown
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.left:key.keyboard.a
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.command:key.keyboard.slash
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.screenshot:key.keyboard.f2
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.hotbar.9:key.keyboard.9
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.togglePerspective:key.keyboard.f5
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.chat:key.keyboard.t
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.inventory:key.keyboard.e
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.fullscreen:key.keyboard.f11
-[16:49:10] [Client thread/WARN]: Skipping bad option: key_key.loadToolbarActivator:key.keyboard.x
-[16:49:10] [Client thread/INFO]: LWJGL Version: 2.9.4
-[16:49:11] [Client thread/INFO]: Reloading ResourceManager: Default
-[16:49:12] [Sound Library Loader/INFO]: Starting up SoundSystem...
-[16:49:12] [Thread-3/INFO]: Initializing LWJGL OpenAL
-[16:49:12] [Thread-3/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
-[16:49:12] [Thread-3/INFO]: OpenAL initialized.
-[16:49:12] [Sound Library Loader/INFO]: Sound engine started
+[12:04:38] [Client thread/INFO]: Setting user: abjectEagle0
+[12:04:40] [Client thread/WARN]: Skipping bad option: lastServer:
+[12:04:40] [Client thread/INFO]: LWJGL Version: 2.9.4
+[12:04:41] [Client thread/INFO]: Reloading ResourceManager: Default, SUHOGRUZx.zip
+[12:04:42] [Sound Library Loader/INFO]: Starting up SoundSystem...
+[12:04:42] [Thread-3/INFO]: Initializing LWJGL OpenAL
+[12:04:42] [Thread-3/INFO]: (The LWJGL binding of OpenAL.  For more information, see http://www.lwjgl.org)
+[12:04:42] [Thread-3/INFO]: OpenAL initialized.
+[12:04:42] [Sound Library Loader/INFO]: Sound engine started
+[12:04:45] [Client thread/INFO]: Created: 4096x2048 textures-atlas
+[12:04:45] [Client thread/ERROR]: Unable to parse metadata from minecraft:textures/blocks/pumpkin_face_on.png
+java.lang.RuntimeException: invalid frameindex 1
+	at cdq.a(SourceFile:237) ~[1.12.2.jar:?]
+	at cdp.a(SourceFile:190) [1.12.2.jar:?]
+	at cdp.b(SourceFile:149) [1.12.2.jar:?]
+	at cdp.a(SourceFile:76) [1.12.2.jar:?]
+	at cgb.n(SourceFile:763) [1.12.2.jar:?]
+	at cgb.a(SourceFile:188) [1.12.2.jar:?]
+	at cgc.a(SourceFile:23) [1.12.2.jar:?]
+	at cev.a(SourceFile:100) [1.12.2.jar:?]
+	at bib.aq(SourceFile:530) [1.12.2.jar:?]
+	at bib.a(SourceFile:404) [1.12.2.jar:?]
+	at net.minecraft.client.main.Main.main(SourceFile:123) [1.12.2.jar:?]
+[12:04:46] [Client thread/INFO]: Narrator library for x64 successfully loaded
+[12:04:47] [Realms Notification Availability checker #1/ERROR]: Realms error code: 400 message: 
+[12:04:56] [Client thread/INFO]: Connecting to mc.vimemc.net, 25565
+[12:05:09] [Realms Notification Availability checker #1/ERROR]: Realms error code: 400 message: 
+[12:05:10] [Client thread/INFO]: Stopping!
+[12:05:10] [Client thread/INFO]: SoundSystem shutting down...
+[12:05:10] [Client thread/WARN]: Author: Paul Lamb, www.paulscode.com

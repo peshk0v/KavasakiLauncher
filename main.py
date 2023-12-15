@@ -25,6 +25,16 @@ class App(customtkinter.CTk):
         self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["minecraftDirPathName"]}")
         self.avVerList = minecraft_launcher_lib.utils.get_version_list()
 
+        try:
+            with open(f"{self.minecraft_directory}\\users.json", "r") as us:
+                self.usnms = json.load(us)
+        except FileNotFoundError:
+            with open(f"{self.minecraft_directory}\\users.json", "w") as us:
+                us.write("[]")
+            self.usnms = []
+
+        print(self.usnms)
+
         self.aids = []
         for i in range(len(self.avVerList)):
             if self.avVerList[i]["type"] == "release":
@@ -48,8 +58,10 @@ class App(customtkinter.CTk):
         self.login_label = customtkinter.CTkLabel(self.login_frame, text="KavasakiLauncher\nA best minecraft launcher!",
                                                   font=customtkinter.CTkFont(size=20, weight="bold"))
         self.login_label.grid(row=0, column=0, padx=30, pady=(20, 15))
-        self.username_entry = customtkinter.CTkEntry(self.login_frame, width=200, placeholder_text="NICKNAME")
-        self.username_entry.grid(row=1, column=0, padx=30, pady=(8, 8))
+        self.usnms.append("Generate Random Nickname")
+        self.usnms.append("Add New Nickname")
+        self.usernameCB = customtkinter.CTkComboBox(self.login_frame,values=self.usnms,)
+        self.usernameCB.grid(row=1, column=0, padx=30, pady=(8, 8))
         self.versionsDirectory = self.minecraft_directory + "\\versions"
         try:
             self.stVersionsList = os.listdir(self.versionsDirectory)
@@ -83,18 +95,37 @@ class App(customtkinter.CTk):
         self.insProgBar.grid(row=7, column=0, padx=30, pady=(10, 15))
         self.insProgBar.set(0/100)
 
-        # create main frame
         self.main_frame = customtkinter.CTkFrame(self, corner_radius=0)
         self.main_frame.grid_columnconfigure(0, weight=1)
         self.main_label = customtkinter.CTkLabel(self.main_frame, text="KavasakiLauncher\nTHANC U FOR GAMING!",
                                                  font=customtkinter.CTkFont(size=20, weight="bold"))
         self.main_label.grid(row=0, column=0, padx=30, pady=(30, 15))
 
+        self.tnick = customtkinter.CTkFrame(self, corner_radius=0)
+        self.tnick.grid_columnconfigure(0, weight=1)
+        self.tnick_label = customtkinter.CTkLabel(self.tnick, text="Type your nickname", font=customtkinter.CTkFont(size=20, weight="bold"))
+        self.tnick_label.grid(row=0, column=0, padx=30, pady=(30, 15))
+        self.tnentry = customtkinter.CTkEntry(master=self.tnick, placeholder_text="NICKNAME")
+        self.tnentry.grid(row=1, column=0, padx=30, pady=(10, 15))
+        self.tbutton = customtkinter.CTkButton(master=self.tnick, text="SAVE", command=self.nsave)
+        self.tbutton.grid(row=2, column=0, padx=30, pady=(10, 15))
+
+    def nsave(self):
+        with open(f"{self.minecraft_directory}\\users.json", "w") as us:
+            self.usnms.remove("Generate Random Nickname")
+            self.usnms.remove("Add New Nickname")
+            self.usnms.append(self.tnentry.get())
+            json.dump(self.usnms, us)
+            CTkMessagebox(message="Ваш ник был сохранён!\nПерезапустите лаунчер для входа в игру!", icon="check", option_1="OK")
 
     def login_event(self):
-        print("Start pressed - nickname:", self.username_entry.get(), "version:", self.versionListbox.get())
-        self.login_frame.grid_forget()
-        self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
+        print("Start pressed - nickname:", self.usernameCB.get(), "version:", self.versionListbox.get())
+        if self.usernameCB.get() == "Add New Nickname":
+            self.login_frame.grid_forget()
+            self.tnick.grid(row=0, column=0, sticky="nsew", padx=100)
+        else:
+            self.login_frame.grid_forget()
+            self.main_frame.grid(row=0, column=0, sticky="nsew", padx=100)
 
         print(self.versionListbox.get())
         print(self.aids)
@@ -116,7 +147,7 @@ class App(customtkinter.CTk):
                 minecraft_launcher_lib.fabric.install_fabric(verlistget, self.minecraft_directory)
             elif vibOr == "Quilt":
                 minecraft_launcher_lib.quilt.install_quilt(verlistget, self.minecraft_directory)
-            CTkMessagebox(message="Версия успешно загружена!", icon="check", option_1="Thanks")
+            CTkMessagebox(message="Версия успешно загружена!", icon="check", option_1="Хорошо")
         else:
 
             self.datalist = os.listdir(self.sett["dataPath"])
@@ -130,24 +161,25 @@ class App(customtkinter.CTk):
             if int(open(stfilePath, "r").read()) == 1:
                 adNewOptions(self.sett["nopFileName"], self.sett["dataPath"], self.minecraft_directory)
                 open(stfilePath, "w").write("0")
-        # if not self.password_entry.get() in self.versionsList:
-        #     try:
-        #         minecraft_launcher_lib.install.install_minecraft_version(versionid=self.password_entry.get(), minecraft_directory=self.minecraft_directory)
-        #     except:
-        #         print("Version Installed Sucefull!")
-        # else:
-        #     pass
 
-            if self.username_entry.get() == '':
+            if self.usernameCB.get() == "Generate Random Nickname":
                 self.username = generate_username()[0]
+            elif self.usernameCB.get() == "Add New Nickname":
+                pass
+            else:
+                self.username = self.usernameCB.get()
 
-            options = {
-                'username': self.username,
-                'uuid': str(uuid.uuid1()),
-                'token': ''
-            }
-            print(options)
-            subprocess.call(minecraft_launcher_lib.command.get_minecraft_command(version=self.versionListbox.get(),minecraft_directory=self.minecraft_directory,options=options))
+            if self.usernameCB.get() == "Add New Nickname":
+                pass
+
+            else:
+                options = {
+                    'username': self.username,
+                    'uuid': str(uuid.uuid1()),
+                    'token': ''
+                }
+                print(options)
+                subprocess.call(minecraft_launcher_lib.command.get_minecraft_command(version=self.versionListbox.get(),minecraft_directory=self.minecraft_directory,options=options))
 
 
 if __name__ == "__main__":
