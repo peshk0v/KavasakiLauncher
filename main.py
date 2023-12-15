@@ -60,7 +60,7 @@ class App(customtkinter.CTk):
         self.login_label.grid(row=0, column=0, padx=30, pady=(20, 15))
         self.usnms.append("Generate Random Nickname")
         self.usnms.append("Add New Nickname")
-        self.usernameCB = customtkinter.CTkComboBox(self.login_frame,values=self.usnms,)
+        self.usernameCB = customtkinter.CTkComboBox(self.login_frame,values=self.usnms)
         self.usernameCB.grid(row=1, column=0, padx=30, pady=(8, 8))
         self.versionsDirectory = self.minecraft_directory + "\\versions"
         try:
