@@ -1,3 +1,9 @@
+[about]
+title = "Kavasaki Launcher"
+description = "A best minecraft launcher"
+docsLink = "https://vk.com/kavasakila"
+version = "1.4"
+
 [file]
 rpFileName = "SUHOGRUZx.zip"
 nopFileName = "newMineOptions.txt"

@@ -10,6 +10,7 @@ from CTkListbox import *
 from CTkMessagebox import CTkMessagebox
 from setmine import ad_rp, adNewOptions
 from random_username.generate import generate_username
+import webbrowser
 
 customtkinter.set_appearance_mode("dark")
 
@@ -20,7 +21,7 @@ class App(customtkinter.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        with open("settings.toml", "rb") as sf:
+        with open("config.toml", "rb") as sf:
             self.sett = tomllib.load(sf)
 
         self.minecraft_directory = minecraft_launcher_lib.utils.get_minecraft_directory().replace('minecraft', f"{self.sett["path"]["minecraftDirPathName"]}")
@@ -68,7 +69,7 @@ class App(customtkinter.CTk):
             self.stVersionsList = os.listdir(self.versionsDirectory)
         except FileNotFoundError:
             self.stVersionsList = []
-        self.versionsListText = "Installed versions:"
+        self.versionsListText = "Versions:"
         self.version_label = customtkinter.CTkLabel(self.login_frame, text=self.versionsListText,font=customtkinter.CTkFont(size=20, weight="bold"))
         self.versionListbox = CTkListbox(self.login_frame, height=10)
         self.versionListbox.grid(row=3, column=0, padx=30, pady=(15, 15))
@@ -92,8 +93,9 @@ class App(customtkinter.CTk):
 
         self.login_button = customtkinter.CTkButton(self.login_frame, text="START", command=self.login_event, width=200)
         self.login_button.grid(row=6, column=0, padx=30, pady=(10, 15))
+        self.about_button = customtkinter.CTkButton(self.login_frame, text="ABOUT", command=self.abwin(), width=200)
         self.insProgBar = customtkinter.CTkProgressBar(self.login_frame)
-        self.insProgBar.grid(row=7, column=0, padx=30, pady=(10, 15))
+        self.insProgBar.grid(row=8, column=0, padx=30, pady=(10, 15))
         self.insProgBar.set(0/100)
 
         self.main_frame = customtkinter.CTkFrame(self, corner_radius=0)
@@ -118,6 +120,13 @@ class App(customtkinter.CTk):
             self.usnms.append(self.tnentry.get())
             json.dump(self.usnms, us)
             CTkMessagebox(message="Ваш ник был сохранён!\nПерезапустите лаунчер для входа в игру!", icon="check", option_1="OK")
+
+    def abwin(self):
+        abmswin = CTkMessagebox(title="About", message=f"{self.sett["about"]["title"]}\n{self.sett["about"]["description"]}\nVERSION: {self.sett["about"]["version"]}", option_1="GO TO SITE", option_2="OK")
+        response = abmswin.get()
+        if response == "GO TO SITE":
+            print("go to site")
+            webbrowser.open(f"{self.sett["about"]["docsLink"]}", new=2)
 
     def login_event(self):
         print("Start pressed - nickname:", self.usernameCB.get(), "version:", self.versionListbox.get())
