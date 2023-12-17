@@ -10,7 +10,7 @@ nopFileName = "newMineOptions.txt"
 
 [path]
 minecraftDirPathName = "kavasaki"
-curentPath = "C:\\Program Files\\kavasaki"
+curentPath = "C:\\Program Files(x86)\\kavasaki"
 dataPath = "data"
 backgroundPath = "\\data\\images\\bg.jpg"
 iconPath = "data/images/icon.ico"
